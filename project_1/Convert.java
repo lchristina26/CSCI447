@@ -48,6 +48,8 @@ public class Convert {
                         fw.write(line.replaceAll("\t", ",") + "\r\n");
                     } else if (line.contains(" ")) {
                         fw.write(line.replaceAll(" ", ",") + "\r\n");
+                    } else if (line.contains(";")) {
+                        fw.write(line.replaceAll(";", ",") + "\r\n");
                     }
                 }
                 fw.close();
