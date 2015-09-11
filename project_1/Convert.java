@@ -22,24 +22,27 @@ public class ConvertToArff {
                 }
                 String file_to_convert_name = file_to_convert.getPath();
                 String base_name = file_to_convert_name.substring(0, file_to_convert_name.lastIndexOf("."));
+                String ext = file_to_convert_name.substring(file_to_convert_name.lastIndexOf(".")+1, file_to_convert_name.length());
                 System.out.println("Base name = " + base_name);
-
+                System.out.println("Ext = " + ext);
                 // replace all spaces or tabs with commas
                 File tempFile = File.createTempFile("temp", "tmp");
                 FileWriter fw = new FileWriter(tempFile);
                 Reader fr = new FileReader(arg);
                 BufferedReader br = new BufferedReader(fr);
 
-                while(br.ready()) {
+                while (br.ready()) {
                     String line = br.readLine();
-                    if(line.contains(" ")) {
+                    if (line.contains(";")) {
+                        fw.write(line.replaceAll(";", ",") + "\r\n");
+                    } else if (line.contains(" ")) {
                         fw.write(line.replaceAll("^ +| +$|( )+", ",") + "\r\n"); //replace all sequences of spaces with a comma
                     } else if (line.contains("\t")) {
                         fw.write(line.replaceAll("\t", ",") + "\r\n");
                     } else if (line.contains(" ")) {
                         fw.write(line.replaceAll(" ", ",") + "\r\n");
-                    } else if (line.contains(";")) {
-                        fw.write(line.replaceAll(";", ",") + "\r\n");
+                    } else {
+                        fw.write(line + "\r\n");
                     }
                 }
                 fw.close();
@@ -47,7 +50,7 @@ public class ConvertToArff {
                 fr.close();
 
                 tempFile.renameTo(new File(base_name + ".csv"));
-
+                System.out.println(base_name);
                 // load CSV
                 CSVLoader loader = new CSVLoader();
                 loader.setSource(new File(base_name + ".csv"));
