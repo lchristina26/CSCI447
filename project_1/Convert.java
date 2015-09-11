@@ -1,21 +1,13 @@
 
-package converttoarff;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.*;
 import weka.core.Instances;
 import weka.core.converters.ArffSaver;
 import weka.core.converters.CSVLoader;
-/**
- *
- * @author Leah
- */
+
 public class ConvertToArff {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) throws IOException {
         // TODO code application logic here
         File file_to_convert = null;
