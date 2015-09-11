@@ -1,8 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
+package converttoarff;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.*;
@@ -13,7 +11,7 @@ import weka.core.converters.CSVLoader;
  *
  * @author Leah
  */
-public class Convert {
+public class ConvertToArff {
 
     /**
      * @param args the command line arguments
@@ -30,8 +28,8 @@ public class Convert {
                     System.out.println("File does not exist");
                     System.exit(1);
                 }
-                String file_to_covert_name = file_to_convert.getName();
-                String base_name = file_to_covert_name.substring(0, file_to_covert_name.lastIndexOf("."));
+                String file_to_convert_name = file_to_convert.getPath();
+                String base_name = file_to_convert_name.substring(0, file_to_convert_name.lastIndexOf("."));
                 System.out.println("Base name = " + base_name);
 
                 // replace all spaces or tabs with commas
@@ -56,17 +54,17 @@ public class Convert {
                 br.close();
                 fr.close();
 
-                tempFile.renameTo(new File("C:\\Users\\Leah\\Desktop\\MachineLearning\\" + base_name + ".csv"));
+                tempFile.renameTo(new File(base_name + ".csv"));
 
                 // load CSV
                 CSVLoader loader = new CSVLoader();
-                loader.setSource(new File("C:\\Users\\Leah\\Desktop\\MachineLearning\\" + base_name + ".csv"));
+                loader.setSource(new File(base_name + ".csv"));
                 Instances data = loader.getDataSet();
 
                 // save ARFF
                 ArffSaver saver = new ArffSaver();
                 saver.setInstances(data);
-                saver.setFile(new File("C:\\Users\\Leah\\Desktop\\MachineLearning\\" + base_name + ".arff"));
+                saver.setFile(new File(base_name + ".arff"));
                 //saver.setDestination(new File("C:\\Users\\Leah\\Desktop\\breast.arff"));
                 saver.writeBatch();
             }
